@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>05-07</title>
+  <style>
+    .score { border:solid 1px black; }
+    .warning { background-color: orange; color:purple; }
+    .warnimage { width:18px; height:18px; top:5px; position:relative;   }
+    .isNotadult{background-color:yellow;}
+  </style>
+  <script src="/lib/js/vue.min.js"></script>
+</head>
+<body>
+<div id="example">
+    <div>
+
+<!-- 
+# 동적인 메서드에 의한 class 적용 여부 처리..
+1. 입력되는 값에 따라서 클래스의 적용을 변경처리할 때,
+	v-model과 v-bind:class를 동시에 적용하면서,
+	v-bind:class="함수" 설정하고,  함수의 return값을 {클래스명:true/false}
+	로 매핑 한다.
+	1) v-model에 의해서 입력에 따라서 모델데이터의 변경을 처리하게 한다.
+		v-model.number: 입력하는 데이터를 number로 처리하며 모델데이터 score에
+		매핑한다.
+	2) 메서드의 computed:{메서드명:function(){}}는 결과값을 동적으로 return한다.
+		입력하는 score에 따라서 {warning:true}/{warning:false}하는 내용이
+		v-bind:class="####"에 할당이 된다.	
+	ex) 나이 : [    ]
+		나이가 20미만이면 배경색상을 노랑색 처리, 이상이면 흰색처리 되게 하세요.	
+		
+ -->        
+ 	   나이 : <input type="text" v-model="age" v-bind:class="ageCk"/><br>
+      <p>1부터 100까지만 입력가능합니다.</p>
+        <div> 	   
+            점수 : <input type="text" class="score" 
+                v-model.number="score" v-bind:class="info" />
+     <!-- 
+     v-show="boolean" true  해당 요소객체를 보이게 처리..
+     				  false일때 보이지 않게 처리..
+     v-show="info.warning" 현재 함수 info의 속성값 warning에 따라서 보이거나
+     	보이지 않게 처리.. 			  
+      -->           
+            <img src="images/error.png" class="warnimage" 
+            	v-show="info.warning" />
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+var vm = new Vue({
+  el : "#example",
+  data : { 
+    score : 0,
+    age:0
+  },
+  computed : {
+	ageCk: function(){
+		if(this.age>=20){
+			return {isNotadult:false};
+		}else{
+			return {isNotadult:true};
+		}	  
+	},
+    info : function() {
+    	// 입력하는 모델값에 따라서 class warning의 적용 여부를 return 처리한다.
+        if (this.score >= 1 && this.score <= 100) 
+            return { warning:false };
+        else 
+            return { warning:true };
+    }
+  }
+})
+</script>
+</body>
+</html>

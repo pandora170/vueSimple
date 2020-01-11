@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>05-05</title>
+  <style>
+    .set1 { background-color: aqua; color:purple; }
+    .set2 { text-align:center; width:120px; }
+    .set3 { border:sandybrown dashed 1px; }
+    .cls1{background-color:yellow;}
+    .cls2{color:red;}
+    .cls3{border:2px solid green;}
+    
+  </style>
+  <script src="/lib/js/vue.min.js"></script>
+</head>
+<body>
+<!-- 
+# 클래스 속성을 vue에 처리 하기..
+1. 클래스 css 선언하기..
+2. vue 속성으로 클래스 mapping 처리 하기..
+	v-bind:class="{클래스1명:true,클래스2명:false}
+	상단에 선언할 클래스를 boolean을 true하면 적용,
+	상단에 선언할 클래스를 boolean을 false하면 미적용,
+ex1) h1에 상단에 선언한 클래스를 적용여부를 mapping 하여 선언하세요.
+	cls1 : 배경색상 노랑     true
+	cls2 : 글자색상을 빨강  false
+	cls3 : border 2px solid green  true
+3. model데이터로 변수와 boolean값을 mapping한 후,
+	css01:true, css02:true, css03:false
+4. 위에 v-bind:class="{cls1:css01로 정의 된 곳에 속성값으로 지정..
+5. v-model :입력값에 따라서 양방향으로 모델 데이터를 변경처리..
+	ex) 위에 선언된 cls1, cls2,cls3의 checkbox에 의해서 적용여부를 처리하게 하세요..
+
+   @이벤트명="함수" : 이벤트에서 모델 데이터를 변경함으로 위에 선언된 class 적용
+   	여부를 동적으로 변경처리할 수 있다.		 	
+ -->
+
+
+<div id="example">
+	<h1 v-bind:class="{cls1:css01,cls2:css02,cls3:css03}">안녕하세요 vue 클래스 적용입니다.</h1>
+    <p>
+        <input type="checkbox" v-model="css01" value="true" />cls1 적용여부<br/>
+        <input type="checkbox" v-model="css02" value="true" />cls2 적용여부<br/>
+        <input type="checkbox" v-model="css03" value="true" />cls3 적용여부<br/>
+    </P>	
+    <button id="btn1" v-bind:class="{ set1:s1, set2:s2, set3:s3 }">버튼1</button>
+    <p>
+        <input type="checkbox" v-model="s1" value="true" />set1 디자인<br/>
+        <input type="checkbox" v-model="s2" value="true" />set2 디자인<br/>
+        <input type="checkbox" v-model="s3" value="true" />set3 디자인<br/>
+    </P>
+    <h2>s1:{{s1}}</h2>
+    <h2>s2:{{s2}}</h2>
+    <h2>s3:{{s3}}</h2>
+</div>
+<script type="text/javascript">
+var vm = new Vue({
+  el : "#example",
+  data : { s1 : false, s2 : false, s3 : false,
+	  	   css01:false, css02:false, css03:false	}
+})
+</script>
+</body>
+</html>

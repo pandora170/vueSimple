@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>04-04</title>
+  <style>
+   html, body { margin: 0;padding: 0; }
+   #example {
+    height: 98vh; min-height: 100%; padding:5px
+   }
+  </style>
+  <script src="/lib/js/vue.min.js"></script>
+</head>
+<body>
+<div id="example" v-on:contextmenu.prevent="ctxStop">
+    <a href="https://facebook.com" @click="confirmFB">페이스북</a>
+</div>
+<script type="text/javascript">
+var vm = new Vue({
+    el : "#example",
+    methods: {
+        ctxStop : function(e) {
+        	// contextmenu.prevent : 마우스 오른쪽 클릭시, 처리하는 이벤트.
+        	// 해당 이벤트를 통해 처리한 내용 기술..
+			alert("호출");
+        },
+        confirmFB : function(e) {
+        	/*
+        	# 요소객체들 가운데 내장된 이벤트가 있다..
+        	1. <a href  :  해당 페이지로 이동 처리.
+        	2. <form  : 지정된 서버로 submit를 클릭시, 데이터 전송(query string)
+        	3. <input : 여러가지 type에 의해서 기본적으로 입력이나, 이벤트를 포함하고 있다.
+        	이러한 기본적으로 지원하는 이벤트가 프로그램 처리에 방해가 될 때,
+        	이벤트 전달값을 함수로 받아서(function(e)) 해당 이벤트를 
+        	e.preventDefault()를 통해서 중지 처리해준다.
+        	*/
+        	/// 해당 페이지를 취소를 클릭시, 페이지 이동을 방지 처리..
+            if (!confirm("페이스북으로 이동할까요?")) {
+                e.preventDefault();
+            }
+        }
+    }
+})
+</script>
+</body>
+</html>

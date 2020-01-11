@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>02-01</title>
+</head>
+<body>
+  <div id="simple"><!-- view단 선언  VM에 해당 view에 선언내용을 el 호출한다. -->
+  	<!-- model에서 선언한 데이터 정의 -->
+    <h2>{{message}}</h2>
+    <h2>{{num01}} + {{num02}}</h2>
+  </div>
+  <script src="/lib/js/vue.min.js"></script>
+  <script type="text/javascript">
+  // Model 단 :  view화면에 보낼 핵심 데이터 선언..
+    var model = {
+      message : '안녕하세요!!!',
+      num01:25,
+      num02:30
+    };
+	// VM(viewmodel) : view와 model의 중재자 역할을 한다.	
+	// 1. 속성 
+	//    1) el : view의 최상위 요소객체를 선언..
+	//    2) data : model 데이터 선언 부분..
+    var simple = new Vue({
+      el : '#simple',
+      data : model
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>02-05</title>
+  <script src="/lib/js/vue.min.js"></script>
+</head>
+<body>
+  <div id="simple1">
+    <div>좋아하는 과일을 모두 골라주세요 : </div>
+    <!-- 
+    # checkbox의 값과 model데이터로 양방향 처리하기..
+    1. checkbox에 동일한 모델로 value을 설정하면, 배열로 모델데이터를
+    설정하여야 한다.
+    2. form 하위에 요소객체들 가운데 동일한 이름으로 v-model로 설정했을 때,
+    	입력되는 value값으로 해당 배열의 index에 할당이된다..
+     -->
+    <input type="checkbox" value="사과" v-model="fruits">사과, 
+    <input type="checkbox" value="키위" v-model="fruits">키위, 
+    <input type="checkbox" value="포도" v-model="fruits">포도,
+    <input type="checkbox" value="수박" v-model="fruits">수박,
+    <input type="checkbox" value="참외" v-model="fruits">참외<br>
+    구매물품1:<input type="text" v-model="products"/><br>    
+    구매물품2:<input type="text" v-model="products"/><br>    
+    구매물품3:<input type="text" v-model="products"/><br>    
+  </div>
+  <hr />
+  <div id="simple2">
+     선택한 과일들 : <span v-html="fruits"></span><br>
+    <h2>{{fruits[0]}} {{fruits[1]}} {{fruits[2]}} {{fruits[3]}}
+    	{{fruits[4]}}</h2> 
+    <h3>구매한 물품 :{{products[0]}} {{products[1]}} {{products[2]}}</h3>	
+  </div>
+  <script type="text/javascript">
+  // checkbox 의 여러가지 값을 할당할 수 있는 모델 속성을 속성값에는 배열을 선언
+  // 하여야 한다.
+  var model = {
+    fruits : [],
+    products:[]
+  };
+
+  var simple1 = new Vue({
+      el : '#simple1', data : model
+  })
+
+  var simple2 = new Vue({
+      el : '#simple2', data : model
+  });
+  </script>
+</body>
+</html>

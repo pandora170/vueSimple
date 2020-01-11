@@ -1,0 +1,38 @@
+# axios와 fullcalendar api 활용하기..
+1. fullcalendar api 다운 로드..
+2. 특정 폴드에 위치..
+3. main demo 파일 :fullcalendar-4.3.1\examples\selectable.html
+		ex) 프로젝트 기준  \vuejs\WebContent\b01_exp 폴드에 복사 처리.
+     패키지 :fullcalendar-4.3.1\packages
+     	ex) 프로젝트 기준  \vuejs\WebContent\packages로 복사.
+     실행할 폴드에 복사 처리..
+     
+4. 파일이름 변경(실행할 파일)     
+   a01_fullCalendar.html
+5. 사용할  jquery ui, jquery, bootstrap등 공통 파일을 해당   a01_fullCalendar.html
+	에 복사 처리..
+   1) 공통 lib가 WebContent\a00_com에 있는 기준하에서 복사 처리..
+		<link rel="stylesheet" href="../a00_com/bootstrap.min.css">
+		<link rel="stylesheet" href="../a00_com/jquery-ui.css">
+		<script src="../a00_com/jquery.min.js"></script>
+		<script src="../a00_com/popper.min.js"></script>
+		<script src="../a00_com/bootstrap.min.js"></script>
+		<script type="text/javascript" 
+			src="../a00_com/jquery-3.4.1.js"></script>
+		<script  src="../a00_com/vue.js" type="text/javascript"></script>	
+		<script src="../a00_com/jquery-ui.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
+		<script src='../packages/core/main.js'></script>
+		<script src='../packages/interaction/main.js'></script>
+		<script src='../packages/daygrid/main.js'></script>
+		<script src='../packages/timegrid/main.js'></script>
+	2) axios lib CDN 방식으로 활용 선언..
+		<script src="https://unpkg.com/axios/dist/axios.min.js" type="text/javascript"></script>
+
+   	
+	
+	
+	
+	

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../a00_com/bootstrap.min.css">
+<link rel="stylesheet" href="../a00_com/jquery-ui.css">
+<style type="text/css">
+    .input-group-text{width:100%;}
+    .input-group-prepend{width:30%;}
+    input[type="text"], label {
+        margin-bottom: 12px; padding: .4em; 
+        width: 95%;
+    }    
+    h1,th,td{text-align:center;}
+</style>
+<script src="../a00_com/jquery.min.js"></script>
+<script src="../a00_com/popper.min.js"></script>
+<script src="../a00_com/bootstrap.min.js"></script>
+<script type="text/javascript" 
+	src="../a00_com/jquery-3.4.1.js"></script>
+<script  src="../a00_com/vue.js" type="text/javascript"></script>	
+<script src="../a00_com/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
+<template id="tmp01">
+	<h2 align='center'>{{no}} - {{food}} - {{price}} </h2>
+</template>
+<script type="text/javascript">
+Vue.component("food",{
+	template:"#tmp01",
+	props:{
+		no:{type:Number,default:0},
+		food:{type:String},
+		price:{type:Number,default:0}
+	}
+})
+ /*
+ ex) 속성으로  좋아하는 음식명, 가격, 선호도을 선언하여 해당 아래의 형식으로 출력하세 하세요
+ 내가 좋아하는 food Rank3
+ 1. @@@  @@
+ 2. @@@  @@
+ 3. @@@  @@
+*/ 
+	$(document).ready(function(){
+		var viewmodel= new Vue({
+			el:".container",
+			data:{msg:"내가 좋아 하는 food Rank3"}
+		});
+		
+	});
+</script>
+</head>
+<body>
+<div class="container" >
+
+<h1>{{msg}}</h1>
+<food no="1" food="짜장면" price="4000"></food>
+<food no="2" food="짬뽕" price="5000"></food>
+<food no="3" food="탕수육" price="12000"></food>
+</div>	
+</body>
+</html>

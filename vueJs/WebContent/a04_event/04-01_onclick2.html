@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>04-03</title>
+  <link rel="stylesheet" 
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <style>
+      .layout1 { margin:30px 30px 30px 30px; }
+  </style>
+  <script src="/lib/js/vue.min.js"></script>
+</head>
+<body>
+<div id="example" class="container layout1">
+    <p><input type="text" v-model="amount" class="form-control" /></p>
+    <p>
+    <!-- 
+    # 사용자 정의 메서드 호출 이벤트 처리..
+    1. v-on:click = @click 
+    	@이벤트명 = "호출할 함수"
+    2. methods:{
+                  함수명:function(e){
+             e: 이벤트가 전달되는 객체를 지정..  
+             e.target : 현재가 이벤트가 일어나고 있는 요소(el)의 이름을 return
+                
+          }
+       }	
+    
+     -->	
+        <button id="deposit" v-on:click="deposit($event)" 
+            class="btn btn-primary">예금</button>
+        <button id="withdraw" v-on:click="withdraw" 
+            class="btn btn-primary">인출</button>
+    </p>            
+    <h3>계좌 잔고 : {{balance}}</h3>
+</div>
+
+<script type="text/javascript">
+/*
+# 확인 예제..
+입금 금액 [    ]  
+    [입금]
+현재 금액 @@@@@
+구매할 물건 가격 [    ]
+구매할 물건 갯수 [    ]
+    [구매] ==> 현재 금액에서 감소 처리..
+    		   잔액이 부족할 때는 경고창 출력..
+ */
+var vm = new Vue({
+  el : "#example",
+  data : {
+    amount : 0,
+    balance : 0,
+  },
+  methods : {
+    deposit : function(e) {
+        var amt = parseInt(this.amount);
+        // 유효성 check로 처리..
+        if (amt <= 0) {
+            alert("0보다 큰 값을 예금해야 합니다");
+        } else {
+            this.balance += amt;
+        }
+    }, 
+    withdraw : function(e) {
+        var amt = parseInt(this.amount);
+        if (amt <= 0) {
+            alert("0보다 큰 값을 인출할 수 있습니다");
+        } else if (amt > this.balance) {
+            alert("잔고보다 많은 금액을 인출할 수 없습니다");
+        } else {
+            this.balance -= amt;
+        }
+    }
+  }
+})
+</script>
+</body>
+</html>

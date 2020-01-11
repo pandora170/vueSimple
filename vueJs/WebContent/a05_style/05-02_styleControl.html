@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>05-03</title>
+  <script src="/lib/js/vue.min.js"></script>
+</head>
+<body>
+<div id="example">
+  <!-- 
+  :style = v-bind:style cf) v-on:click = @click
+  :style = "{css속성:모델매핑,}"
+  1. 위에 있는 모델의 값을 이벤트나 특정 형식으로 변경되었을 때,
+  	모델  css를 동적으로 변경 처리 한다.
+ ex) 연습예제. 	
+  2. h2의 속성의 css속성:모델매핑으로 배경색상 글자색상으로 지정하고,
+  	  넓이와 폭을 지정한후,
+  3. 버튼 [커져라]  [작아져라] 의 이벤트를 통해서 넓이 폭이 변경되게 하세요..	  
+   -->
+  <h1 :style="{ backgroundColor: b.bc, color:b.cl, width:b.w+'px', height:b.h+'px' }">
+  	안녕하세요 css 속성</h1> 
+  <input type="button" value="커져라" @click="enLarge"/>	
+  <input type="button" value="작아져라" @click="enSmall"/>	
+  <div 
+    :style="{ backgroundColor: a.bc, border:a.bd, width:a.w+'px', height:a.h+'px' }">
+  </div>
+</div>
+<script type="text/javascript">
+var vm = new Vue({
+  el : "#example",
+  data : {
+    a : { bc:"yellow", bd:'solid 1px gray', w:200, h:100 },
+    b : { bc:"navy", cl:"orange" , w:200, h:100 }
+  },
+  methods:{
+	  enLarge:function(){
+		  this.b.w+=30;
+		  this.b.h+=30;
+	  },
+	  enSmall:function(){
+		  this.b.w-=30;
+		  this.b.h-=30;		  
+	  }
+  }
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../a00_com/bootstrap.min.css">
+<link rel="stylesheet" href="../a00_com/jquery-ui.css">
+<style type="text/css">
+    .input-group-text{width:100%;}
+    .input-group-prepend{width:30%;}
+    input[type="text"], label {
+        margin-bottom: 12px; padding: .4em; 
+        width: 95%;
+    }    
+</style>
+<script src="../a00_com/jquery.min.js"></script>
+<script src="../a00_com/popper.min.js"></script>
+<script src="../a00_com/bootstrap.min.js"></script>
+<script type="text/javascript" 
+	src="../a00_com/jquery-3.4.1.js"></script>
+<script  src="../a00_com/vue.js" type="text/javascript"></script>	
+<script src="../a00_com/jquery-ui.js"></script>
+<script type="text/javascript">
+/* 
+ex) 학점에 따른 평가 등급 출력..
+90이상  A, 
+80이상  B, 
+70이상  C, 
+60이상  D, 
+0이상 ~60미만  F
+100초과  0미만은 유효한 범위가 아닙니다.
+
+
+ */
+	$(document).ready(function(){
+		var model={msg:"v-if 처리",point:0};
+		var viewmodel= new Vue({
+			el:".container",
+			data:model
+		});
+		
+	});
+</script>
+</head>
+<body>
+<!--  -->
+<div class="container" >
+<h1>{{msg}}</h1>
+	<table class="table table-hover table-striped">
+		<col width="50%">
+		<col width="50%">
+		<tr><td>점수</td><td><input type="text" class="form-control"
+						 v-model="point" placeholder="점수입력"/></td></tr>
+		<tr v-if="point>100 || point<0"><td>유효한 범위가 아닙니다.</td></tr>
+		<tr v-else-if="point>=90"><td>A등급</td></tr>
+		<tr v-else-if="point>=80"><td>B등급</td></tr>
+		<tr v-else-if="point>=70"><td>C등급</td></tr>
+		<tr v-else-if="point>=60"><td>D등급</td></tr>
+		<tr v-else ><td>F등급</td></tr>
+	</table>		
+</div>	
+</body>
+</html>

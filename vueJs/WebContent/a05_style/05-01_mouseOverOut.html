@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>05-02</title>
+  <script src="/lib/js/vue.min.js"></script>
+</head>
+<body>
+<div id="example">
+<!-- 
+# vue에서 style과 모델의 연결처리.
+1. 모델데이터
+	모델명:{속성:속성값,....}
+	위에 모델에 매핑된 속성 속성값을 css의 속성을 camel code형식으로
+	선언한다. 	
+2. 요소객체(el)의 속성으로 v-bind:style="모델명"
+3. 이벤트를 통한 css로 선언된 모델 데이터의 변경은 매핑된 css의 동적인
+	변경을 가능한다..	
+	
+ex1) h1을 선언하고 모델데이터로  속성으로 배경색상과 글자색상 (파랑/노랑)
+설정하고  style속성을 지정 처리하세요..
+ex2) 위 h1 클릭시, 메서드 호출하고, 배경색상과 글자 색상을 변경하게 처리하세요.. 
+
+	
+ -->
+  <h1 v-bind:style="style2" @click="chColor">안녕하세요</h1>	
+  <button id="a" v-bind:style="style1" 
+      @mouseover.stop="overEvent" 
+      @mouseout.stop="outEvent">테스트</button>
+</div>
+<script type="text/javascript">
+var vm = new Vue({
+  el : "#example",
+  data : {
+    style1 : { backgroundColor:"aqua", border:'solid 1px gray', 
+      with:'100px', textAlign:'center' },
+    style2 : { backgroundColor:"orange",color:"tomato"}
+  },
+  methods : {
+	chColor : function(){
+		this.style2.backgroundColor="navy";
+		this.style2.color="yellow";
+	},
+    overEvent : function(e) {
+    // 현재 모델 객체의 속성 변경..
+    /// 모델 속성은 v-bind:style에 의해서 css 속성과 연결되어 있기에
+    // 동적으로 변경이 된다.
+      this.style1.backgroundColor = "purple";
+      this.style1.color = "yellow";
+    },
+    outEvent : function(e) {
+      this.style1.backgroundColor = "aqua";
+      this.style1.color = "black";
+    }
+  }
+})
+</script>
+</body>
+</html>

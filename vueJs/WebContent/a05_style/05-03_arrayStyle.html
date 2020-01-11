@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>05-04</title>
+  <script src="/lib/js/vue.min.js"></script>
+</head>
+<body>
+<!-- 
+# 여러가지 style 속성을 모델데이터로 매핑 처리..
+1. 형식
+	v-bind:style="[모델1,모델2]"
+
+ -->
+<div id="example">
+    <button id="btn1" v-bind:style="[myColor,myLayout]">버튼1</button>
+</div>
+<script type="text/javascript">
+var vm = new Vue({
+  el : "#example",
+  data : {
+    myColor : { backgroundColor:'purple', color:'yellow' },
+    myLayout : { width:'150px', height:'80px', textAlign:'center' }
+  }
+})
+</script>
+</body>
+</html>

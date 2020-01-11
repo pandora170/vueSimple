@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../a00_com/bootstrap.min.css">
+<link rel="stylesheet" href="../a00_com/jquery-ui.css">
+<style type="text/css">
+    .input-group-text{width:100%;}
+    .input-group-prepend{width:30%;}
+    input[type="text"], label {
+        margin-bottom: 12px; padding: .4em; 
+        width: 95%;
+    }    
+</style>
+<script src="../a00_com/jquery.min.js"></script>
+<script src="../a00_com/popper.min.js"></script>
+<script src="../a00_com/bootstrap.min.js"></script>
+<script type="text/javascript" 
+	src="../a00_com/jquery-3.4.1.js"></script>
+<script  src="../a00_com/vue.js" type="text/javascript"></script>	
+<script src="../a00_com/jquery-ui.js"></script>
+<script type="text/javascript">
+/*
+# 방어률 계산 처리..
+선수명 : [    ]
+경기 이닝 : [   ]       
+자책점 : [   ]    9회기준으로 평균자책점 수.  
+@@@님의 방어율 : @@@
+ 
+ */
+
+	$(document).ready(function(){
+		var viewmodel= new Vue({
+			el:".container",
+			data:{msg:"방어율 계산",name:"",inning:0,point:0},
+			computed:{
+				defRatio:function(){
+					var rat = this.point*9.0/this.inning;
+					// isNaN : 해당 값이 숫자가 아닐 때, Is not a number?
+					//   NaN에러 리턴 방지 처리..
+					var result= isNaN(rat)?0:rat;
+					return result.toFixed(2);
+				}
+			}
+		});
+		
+	});
+</script>
+</head>
+<body>
+<div class="container" >
+<h1>{{msg}}</h1>
+	<table class="table table-hover table-striped">
+		<col width="50%">
+		<col width="50%">
+		<thead class="thead-light">
+			<tr><th>내용</th><th>입력데이터</th></tr>
+		</thead>	
+		<tr><td>이름</td><td><input type="text" v-model="name"/></td></tr>
+		<tr><td>경기이닝</td><td><input type="text" v-model="inning"/></td></tr>
+		<tr><td>자책점</td><td><input type="text" v-model="point"/></td></tr>
+		<tr><td colspan="2">{{name}} 투수의 방어율은 {{defRatio}}</td></td></tr>
+	</table>		
+</div>	
+</body>
+</html>

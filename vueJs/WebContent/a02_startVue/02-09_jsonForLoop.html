@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>02-09</title>
+<script src="/lib/js/vue.min.js"></script>
+</head>
+<body>
+<!-- 
+# v-for 구문에서 json데이터의 key,value형식일 때, 처리
+1. json 객체 데이터가 {key:value,key2:vlaue}
+2. 배열이 아니지만  객체의 속성과 속성값 형태로 데이터를 가져와서..
+	화면에 v-for문을 통해서 val(값),  key, index의  매개값으로 처리할 수 있다.
+	ex) for(var  속성 in  객체 )
+			객체[속성] ==> 속성값..
+
+ -->
+    <div id="exmaple">
+        <select id="regions">
+            <option disabled="disabled" selected>지역을 선택하세요</option>
+            <option v-for="(val, key, index) in regions" 
+              v-bind:value="key">{{ index+1 }} : {{val}}</option>
+        </select><br>
+        
+    <!-- ex) radio 형식으로  사는 지역
+    		value:서울/경기  충청   경상도   전라도   제주도    강원도 
+    	     key:   loc1  loc2  loc3 loc4  loc5  loc6-->
+    	    <span  v-for="(val, key, idx) in regions2"> 
+    	    	<input type="radio" name="loc" 
+    	    	v-bind:value="key"/>{{val}}
+    	    </span>     
+    </div>
+    <script type="text/javascript">
+    
+    var regions = {
+        "A" : "Asia",
+        "B" : "America",
+        "C" : "Europe",
+        "D" : "Africa",
+        "E" : "Oceania"
+    };
+
+    var list = new Vue({
+        el : "#exmaple",
+        data : { regions : regions,
+        		regions2:{
+        			loc1:"서울/경기",
+        			loc2:"강원도",
+        			loc3:"충청",
+        			loc4:"경상도",
+        			loc5:"전라도",
+        			loc6:"제주도"
+        		}}
+    });
+    </script>
+</body>
+</html>

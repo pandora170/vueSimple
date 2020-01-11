@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>03-08</title>
+<style>
+    #list  { width: 400px; border:1px solid black; border-collapse:collapse; }
+    #list td, #list th { border:1px solid black;  text-align:center; }
+    #list > thead > tr { color:yellow; background-color: purple; }
+</style>
+</head>
+<body>
+    <div id="example">
+        <p>
+        <!-- 검색할 내용은 watch으로 검색을 keyword 처리.. -->
+        이름 : <input type="text" v-model="name" placeholder="두글자 이상을 입력하세요" />
+        </p>
+        <table id="list">
+            <thead>
+                <tr>
+                    <th>번호</th><th>이름</th><th>전화번호</th><th>주소</th>
+                </tr>
+            </thead>
+            <tbody id="contacts" >
+            <!-- 모델에서 비동기 통신으로 매핑된 내용을 출력 처리..
+              contactlist 배열객체   contact 단위객체.
+              contact.@@ 단위객체의 속성값..
+              -->
+                <tr v-for="contact in contactlist">
+                    <td>{{contact.no}}</td>
+                    <td>{{contact.name}}</td>
+                    <td>{{contact.tel}}</td>
+                    <td>{{contact.address}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div v-show="isProcessing">조회중</div>
+    </div>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
+<script type="text/javascript">
+var vm = new Vue({
+    el : '#example',
+    data : {
+        name : "",
+        isProcessing : false,
+        contactlist : []
+    },
+    watch : {
+        name : function(val) {
+        	console.log(val.length+":"+val);
+        	
+        	
+            if (val.length >= 2) {
+                this.fetchContacts();
+            } else {
+                this.contactlist = [];
+            }
+        }
+    },
+    methods : {
+    	// 메서드 정의 : function(){}
+        //    1. _.debounce(함수, 1/1000초) : 해당 시간간격으로  함수를 
+        //        수행할 수 있게 처리한다.
+        fetchContacts : _.debounce(function() {
+        	// 리스트할 데이터 초기화..
+            this.contactlist = [];
+        	// v-show="true/false" 조회중을  로딩할때, 표시..
+            this.isProcessing = true;
+        	// http://localhost:7080/springweb/emp.do?method=ajaxList&ename=JAMES
+            // 전체 데이터 : http://sample.bmaster.kro.kr/contacts
+            // 번호로 검색 : http://sample.bmaster.kro.kr/contacts/1570813205514
+            // 검색할 keyword로 확인 : http://sample.bmaster.kro.kr/contacts/search/이름
+            var url = "http://sample.bmaster.kro.kr/contacts_long/search/"
+            + this.name;
+        	console.log("url:"+url);
+        	// this : new Vue()의 instance이기 때문에  모델,메서드를 접근 가능..
+            var vm = this;
+        	// fetch(접속서버주소).then(서버주소를통해받아서 처리할 데이터1)
+        	//   .then(상위 then에서 걸러진 json데이터로 모델데이터로 매핑처리..
+        	//   ).catch(에러나 예외가 발생시 처리할 내용..)
+        	//  이 내용이 비동기적으로 처리된다.
+            fetch(url)
+                .then(function(response) {
+                	// this : 현재 fetch api 객체를 지정.
+                	// 현재 block에서 메서드나 모델을 호출할려면.. 상위에서 선언된 변수를 활용
+                	// 하여야 한다.
+                	// 서버에서 넘겨온 결과값 중에 json데이터를 다음 then 블럭에 넘긴다.
+                	console.log("then 블럭1:"+response);
+                    return response.json()
+                }).then(function(json) {
+                	// 상단  then에서 넘겨온 json데이터를 받는 변수..
+                	console.log("then 블럭2:"+json);
+                	console.log("json의 갯수:"+json.length);
+                	console.log("첫번째 데이터:"+json[0].name+":"+json[0].address);
+                	
+                	// 모델로 선언된 contactlist 에  서버에서온 데이터를 할당처리..
+                    vm.contactlist = json;
+                	// 수행중인 것을 종료.. 로딩중 표시하지 않음..
+                    vm.isProcessing = false;
+                }).catch(function(ex) {
+                    console.log('parsing failed', ex);
+                    vm.contactlist = [];
+                    vm.isProcessing = false;
+                })
+
+        }, 300)
+    }
+})
+</script>
+</body>
+</html>

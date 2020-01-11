@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>05-06</title>
+  <style>
+    .set1 { background-color: aqua; color:purple; }
+    .set2 { text-align:center; width:120px; }
+    .set3 { border:sandybrown dashed 1px; }
+    .cls1 { background-color:pink;}
+    .cls2 { color:tomato;}
+    .cls3 { width:50%;}
+  </style>
+  <script src="/lib/js/vue.min.js"></script>
+</head>
+<body>
+<div id="example">
+<!-- 
+# 매핑된 클래스을 모델과 함께 선언하고,
+모델 데이터는 해당 객체의 속성을 선언하여 처리할 때, 활용되는 방법..
+1. 클래스 선언..
+2. 모델명으로  모델명:{클래스1명:true,클래스2명:true,...}
+3. 요소객체에 적용 v-bind:class="모델명"
+4. v-model/이벤트로  입력내용에 따라 해당 모델의 값을 변경 처리해준다.
+	주의) 모델명.클래스1명 으로 mapping 하여야 해당 내용을 정상적으로
+	처리할 수 있다..
+ex) h2 : 배경색상, 글자색상, 넓이를 class로 속성을 선언하고,
+	해당 내용을 style2로 모델데이터 적용여부를 선언한 후,
+	checkbox로 적용 처리하게 하세요..
+ -->
+	<h2 v-bind:class="style2">안녕하세요 class 적용</h2>
+    <p>
+        <input type="checkbox" v-model="style2.cls1" value="true" />클래스1 적용<br/>
+        <input type="checkbox" v-model="style2.cls2" value="true" />클래스2 적용<br/>
+        <input type="checkbox" v-model="style2.cls3" value="true" />클래스3 적용<br/>
+    </p>	
+    <button id="btn1" v-bind:class="mystyle">버튼1</button>
+    <p>
+        <input type="checkbox" v-model="mystyle.set1" value="true" />set1 디자인<br/>
+        <input type="checkbox" v-model="mystyle.set2" value="true" />set2 디자인<br/>
+        <input type="checkbox" v-model="mystyle.set3" value="true" />set3 디자인<br/>
+    </P>
+</div>
+<script type="text/javascript">
+var vm = new Vue({
+  el : "#example",
+  data : { 
+     mystyle : { set1:false, set2:false, set3:false },
+     style2 : { cls1:false, cls2:false, cls3:false }
+  }
+})
+</script>
+</body>
+</html>
